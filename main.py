@@ -12,7 +12,10 @@ user = {"name":"David","email":"david@gmail.com"}
 class User(BaseModel):
     name:str
     email:str
-
+    
+class PutUser(BaseModel):
+    name:Optional[str]=None
+    email:Optional[str]=None
 
 # GET method
 @app.get("/")
@@ -28,18 +31,18 @@ def post_user(user_id: int,name:str,email:str):
 
 # PUT method 
 @app.put("/api/user/{user_id}")
-def put_user(name:str,email:str):
-    user["name"]=name
-    user["email"]=email
+def put_user(name:str,user_data:str):
+    user["name"]=user_data.name
+    user["email"]=user_data.email
     return user
 
 # PATCH method:
 @app.patch("/api/user/{user_id}/")
-def patch_user(user_id: int, name: Optional[str] = None, email: Optional[str] = None):
-    if name:
-        user["name"]=name
-    if email:
-        user["email"]=email
+def patch_user(user_id: int, user_data=PutUser):
+    if user_data.name:
+        user["name"]=user_data.name
+    if user_data.email:
+        user["email"]=user_data.email
     return user    
 
 
