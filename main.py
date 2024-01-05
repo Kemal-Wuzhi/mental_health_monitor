@@ -1,11 +1,18 @@
 from fastapi import FastAPI
 import uvicorn
 from typing import Optional
+from pydantic import BaseModel
 
 app =FastAPI()
 
 # dummy data
-user = {"name":"David","email":"david@gmail.com"}
+user = {"name":"David","email":"david@gmail.com"} 
+
+# define pydantic models
+class User(BaseModel):
+    name:str
+    email:str
+
 
 # GET method
 @app.get("/")
